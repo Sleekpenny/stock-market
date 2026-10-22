@@ -1,3 +1,4 @@
+// hooks/trading-view-widget.ts
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -5,30 +6,28 @@ import { useEffect, useRef } from "react";
 const useTradingViewWidget = (
   scriptUrl: string,
   config: Record<string, unknown>,
-  height = 600,
 ) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if(!containerRef.current) return;
-    if(containerRef.current.dataset.loaded) return;
-    containerRef.current.innerHTML = `<div className="tradingview-widget-container_widget" style="width: 100%; height: ${height}px;"  />`
+    const container = containerRef.current;
+    if (!container) return;
 
     const script = document.createElement("script");
     script.src = scriptUrl;
     script.async = true;
+    script.type = "text/javascript";
     script.innerHTML = JSON.stringify(config);
-
-    containerRef.current.appendChild(script);
-    containerRef.current.dataset.loaded = 'true';
+    container.appendChild(script);
 
     return () => {
-        if(containerRef.current) {
-            containerRef.current.innerHTML = '';
-            delete containerRef.current.dataset.loaded;
-        }
-    }
-  }, [scriptUrl, config, height]);
+      script.remove();
+      const widget = container.querySelector(
+        ".tradingview-widget-container__widget",
+      );
+      if (widget) widget.innerHTML = "";
+    };
+  }, [scriptUrl, config]);
 
   return containerRef;
 };
