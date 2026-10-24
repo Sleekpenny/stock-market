@@ -1,5 +1,5 @@
 import TradingView from "@/components/trading-view";
-import { CHART_WIDGET_CONFIG, MARKET_DATA_WIDGET_CONFIG, TOP_STORIES_WIDGET_CONFIG } from "@/lib/utils";
+import { CHART_WIDGET_CONFIG, MARKET_DATA_WIDGET_CONFIG, TOP_STORIES_WIDGET_CONFIG } from "@/lib/constants";
 
 const Home = () => {
   const scriptConfigURL = 'https://s3.tradingview.com/external-embedding/embed-widget-';
