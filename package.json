@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:db" : "node script/test.db.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -14,6 +15,8 @@
     "cmdk": "^1.1.1",
     "cn": "^0.4.0",
     "lucide-react": "^1.57.0",
+    "mongodb": "^7.7.0",
+    "mongoose": "^9.11.4",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",

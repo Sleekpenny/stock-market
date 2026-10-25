@@ -20,7 +20,7 @@ const SignIn = () => {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      console.log(data);
+      await console.log(data);
     } catch (e) {
       console.error(e);
     }
@@ -34,6 +34,7 @@ const SignIn = () => {
         <InputFields
           name="email"
           label="Email"
+          type="email"
           placeholder="example@gmail.com"
           register={register}
           error={errors.email}

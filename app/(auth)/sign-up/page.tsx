@@ -32,7 +32,7 @@ const SignUp = () => {
 
   const onSubmit = async (data: SignUpFormData) => {
     try {
-      console.log(data);
+      await console.log(data);
     } catch (e) {
       console.error(e);
     }
@@ -55,6 +55,7 @@ const SignUp = () => {
         <InputFields
           name="email"
           label="Email"
+          type="email"
           placeholder="example@gmail.com "
           register={register}
           error={errors.email}
