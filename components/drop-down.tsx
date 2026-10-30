@@ -14,17 +14,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import NavItems from "./nav-items";
+import { signOut } from "@/lib/actions/auth.actions";
 
-const DropDown = () => {
-  const user = {
-    firstName: "Courage",
-    lastName: "Asemokhe",
-    email: "macphantomsoft@gmail.com",
-  };
+const DropDown = ({user}:{user:User}) => {
 
   const router = useRouter();
+
   const handleSignOut = async () => {
-    router.push("/sign-out");
+    await signOut();
+    router.push("/sign-in");
   };
 
   return (
@@ -33,12 +31,12 @@ const DropDown = () => {
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback className="bg-yellow-400 text-yellow-900 text-md font-bold">
-            {user.firstName[0]} {user.lastName[0]}
+            {user?.name[0]}
           </AvatarFallback>
         </Avatar>
         <div className="hidden md:block">
           <span className="text-base font-medium text-gray-400">
-            {user.firstName}
+            {user.name}
           </span>
         </div>
       </DropdownMenuTrigger>
@@ -50,13 +48,13 @@ const DropDown = () => {
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback className="bg-yellow-400 text-yellow-900 text-md font-bold">
-                {user.firstName[0]} {user.lastName[0]}
+                {user.name[0]}
               </AvatarFallback>
             </Avatar>
 
             <div className="flex flex-col">
               <span className="text-base font-medium text-gray-400">
-                {user.firstName}
+                {user.name}
               </span>
               <span className="text-sm text-gray-500">{user.email}</span>
             </div>

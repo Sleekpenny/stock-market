@@ -36,6 +36,7 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpFormData) => {
+      console.log("submitting", data);
     try {
       const result = await signUpWithEmail(data)
       if (result.success) {
@@ -50,10 +51,9 @@ const SignUp = () => {
   };
 
   return (
-    <section className="">
+    <section>
       <h1 className="form-title">Sign up & Personalized </h1>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit, (errors) => console.log('Form processing submission', errors))} className="space-y-5">
         <InputFields
           name="fullName"
           label="Full Name"
@@ -63,19 +63,21 @@ const SignUp = () => {
           validation={{ required: "Full name is required", minLength: 2 }}
         />
 
-        <InputFields
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="example@gmail.com "
-          register={register}
-          error={errors.email}
-          validation={{
-            required: "Email is required",
-            pattern: /^\w+@\.\w+$/,
-            message: "Email address is required",
-          }}
-        />
+      <InputFields
+        name="email"
+        label="Email"
+        type="email"
+        placeholder="you@example.com"
+        register={register}
+        error={errors.email}
+        validation={{
+          required: "Email is required",
+          pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "Enter a valid email address",
+          },
+        }}
+      />
 
         <InputFields
           name="password"

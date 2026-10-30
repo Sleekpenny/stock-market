@@ -3,18 +3,17 @@ import Image from "next/image";
 import NavItems from "./nav-items";
 import DropDown from "./drop-down";
 
-const Header = () => {
+const Header = ({user}:{user:User}) => {
     return (
         <header className="sticky top-0 header">
             <div className="container header-wrapper">
                 <Link href='/'>
                     <Image src="/assets/icons/logo.svg" alt="Signalist Logo" width={140} height={32}/>
                 </Link>
-
                 <nav className="hidden sm:block">
                 <NavItems />
                 </nav>
-                <DropDown />
+                <DropDown user={user} />
             </div>
         </header>
     )

@@ -1,35 +1,35 @@
 import { connectToDB } from "@/database/mongose";
 import { betterAuth } from "better-auth";
-import { mongodbAdapter } from "better-auth/adapters/mongodb"
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
+import type { Db } from "mongodb";
 
-let authInstance: ReturnType<typeof betterAuth> | null = null;
+const createAuth = (db: Db) =>
+  betterAuth({
+    database: mongodbAdapter(db),
+    secret: process.env.BETTER_AUTH_SECRET,
+    baseURL: process.env.BETTER_AUTH_URL,
+    emailAndPassword: {
+      enabled: true,
+      disableSignUp: false,
+      requireEmailVerification: false,
+      minPasswordLength: 8,
+      maxPasswordLength: 28,
+      autoSignIn: true,
+    },
+    plugins: [nextCookies()],
+  });
 
-export const getAuth = async () =>{
-    if(authInstance) return authInstance;
+type AuthInstance = ReturnType<typeof createAuth>;
+let authInstance: AuthInstance | null = null;
 
-    const mongoose = await connectToDB();
-    const db = mongoose.connection.db;
+export const getAuth = async (): Promise<AuthInstance> => {
+  if (authInstance) return authInstance;
 
-    if(!db) throw new Error('MongoDB connection not found');
+  const mongoose = await connectToDB();
+  const db = mongoose.connection.db;
+  if (!db) throw new Error("MongoDB connection not found");
 
-    authInstance = betterAuth ({
-        database: mongodbAdapter(db),
-        secret: process.env.BETTER_AUTH_API_KEY,
-        baseURL: process.env.NEXT_BETTER_AUTH_BASEURL,
-        emailAndPassword: {
-            enabled: true,
-            disableSignUp: false,
-            requireEmailVerification: false,
-            minPasswordLength: 8,
-            maxPasswordLength:28,
-            autoSignIn: true
-        },
-          plugins: [nextCookies()]
-    })
-
-    return authInstance;
-
-}
-
-export const auth = await getAuth;
+  authInstance = createAuth(db);
+  return authInstance;
+};

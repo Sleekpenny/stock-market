@@ -5,7 +5,7 @@ import { PERSONALIZED_WELCOME_EMAIL_PROMPT } from "./prompts";
 export const sendSignUpEmail = inngest.createFunction(
     {
         id: 'sign-up-email',
-        triggers: [ {event: 'app/user.created'}]
+        triggers: [{event: 'app/user.created'}]
     },
     async({ event, step }) =>{
         const userProfile = `
@@ -30,7 +30,7 @@ export const sendSignUpEmail = inngest.createFunction(
             const part = response.candidates?.[0]?.content?.parts?.[0];
             const introText = (part && 'text' in part ? part.text : null ) || 'Thanks for joining stock market platform. You now have the tools to track markets and make smarter moves.'
        
-            const { data: { email, name, intro } }  = event;
+            const { data: { email, name } }  = event;
             return await sendWelcomeEmail({
                 email, name, intro:introText
             })
