@@ -4,6 +4,8 @@ import { getAuth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export const instant = false;
+
 const Layout = async ({ children }: { children: React.ReactNode }) => {
   
   const auth = await getAuth();

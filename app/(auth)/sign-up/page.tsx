@@ -36,7 +36,6 @@ const SignUp = () => {
   });
 
   const onSubmit = async (data: SignUpFormData) => {
-      console.log("submitting", data);
     try {
       const result = await signUpWithEmail(data)
       if (result.success) {
