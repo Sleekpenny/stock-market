@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Search from "./searh";
 
-const NavItems = () => {
+const NavItems = ({initialStocks}: {initialStocks: StockWithWatchlistStatus[]}) => {
     const pathName = usePathname()
 
     const isActive = (path:string) => {
@@ -20,7 +20,7 @@ const NavItems = () => {
                     <li key="search-trigger">
                         <Search 
                         label="Search"
-                        initialStocks={[]}
+                        initialStocks={initialStocks}
                         renderAs="text"
                         />
                     </li>

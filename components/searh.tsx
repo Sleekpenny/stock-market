@@ -113,6 +113,7 @@ const Search = ({ renderAs = 'button', label = 'Add stock', initialStocks }: Sea
                     {stock.symbol} | {stock.exchange} | {stock.type}
                   </div>
                 </div>
+
               </CommandItem>
             ))}
           </>
